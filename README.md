@@ -5,7 +5,7 @@ This was made for the Google Developer Challenge 2017-2018 as an assignment to p
 
 This is what the UI looks like on my device (Lenovo tablet Lollipop API22)
 
-![Udacity JustJava App Portrait](https://github.com/elisavetTriant/JustJava/blob/master/screenshots/Screenshot_JustJava_portrait.png  "Udacity JustJava App Portrait")
+![Udacity JustJava App Portrait](https://github.com/elisavetTriant/JustJava/blob/master/screenshots/Screenshot_JustJava_portrait.png.png "Udacity JustJava App Portrait")
 
 And here is what the layout xml code looks like (file app/src/main/res/layout/activity_main.xml, or https://github.com/elisavetTriant/JustJava/blob/master/app/src/main/res/layout/activity_main.xml):
 ```xml
