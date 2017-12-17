@@ -14,6 +14,10 @@ This was made for the Google Developer Challenge 2017-2018 as an assignment to p
 >- This branch is dedicated to all my fellow Udacians, mentors and students alike, who took and will take the time to make helpful suggestions to make this App helpful to others.
 >
 
+This is how the App behaves:(short video on Youtube)
+
+[![JustJava App](http://img.youtube.com/vi/1in4mb_ZZ2U/0.jpg)](https://www.youtube.com/watch?v=1in4mb_ZZ2U "JustJava App")
+
 This is what the UI looks like on my device (Lenovo tablet Lollipop API22)
 
 ![Udacity JustJava App Portrait](https://github.com/elisavetTriant/JustJava/blob/master/screenshots/Screenshot_JustJava_portrait.png.png  "Udacity JustJava App Portrait")
