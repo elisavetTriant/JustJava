@@ -9,6 +9,8 @@
 package com.example.android.justjava;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,17 +28,14 @@ public class MainActivity extends AppCompatActivity {
 
     //Declare and Initialise Global Vars
     public int quantity = 1;
-    public String orderMessage = "";
     //Declare and Initialise Constants
     static final int PRICE_PER_CUP = 5;
     static final int CHOCOLATE_PRICE = 2;
     static final int WHIPPED_CREAM_PRICE = 1;
     //String constants for keys
     static final String QUANTITY_KEY = "quantity";
-    static final String ORDER_MESSAGE_KEY = "orderMessage";
     //UI object vars
     TextView quantityTextView;
-    TextView orderSummaryTextView;
     CheckBox whippedCreamCheckBox;
     CheckBox chocolateCheckBox;
     EditText nameEditText;
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //Get the view objects using the view IDs
         quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
         whippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
         chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_checkbox);
         nameEditText = (EditText) findViewById(R.id.name_edit_text);
@@ -65,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         // This bundle will be passed to onCreate if the process is
         // killed and restarted.
         savedInstanceState.putInt(QUANTITY_KEY, quantity);
-        savedInstanceState.putString(ORDER_MESSAGE_KEY, orderMessage );
     }
 
     @Override
@@ -75,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
         // Restore UI state from the savedInstanceState.
         // This bundle has also been passed to onCreate.
         quantity = savedInstanceState.getInt(QUANTITY_KEY);
-        orderMessage = savedInstanceState.getString(ORDER_MESSAGE_KEY);
-
         updateUIValues();
     }
 
@@ -88,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             quantity = quantity + 1;
             displayQuantity(quantity);
         } else {
-            displayToastMessage("You can't order more than 100 coffees! Thank you!");
+            displayToastMessage(getString(R.string.max_order));
         }
     }
 
@@ -101,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             quantity = quantity - 1;
             displayQuantity(quantity);
         } else {
-            displayToastMessage("You can't order less than one coffee! Thank you!");
+            displayToastMessage(getString(R.string.min_order));
         }
     }
 
@@ -109,8 +104,9 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        orderMessage = prepareOrderMessage();
-        displayOrderMessage(orderMessage);
+        String orderMessage = prepareOrderMessage();
+        String subjectLine = getString(R.string.order_summary_email_subject,  nameEditText.getText().toString());
+        composeEmail(subjectLine, orderMessage);
     }
 
     /**
@@ -120,20 +116,28 @@ public class MainActivity extends AppCompatActivity {
         quantityTextView.setText(String.valueOf(number));
     }
 
-    /**
-     * This method displays the given orderSummary on the screen.
-     */
-    public void displayOrderMessage(String message) {
-        orderSummaryTextView.setText(message);
-    }
 
     /**
      * This method, when called, updates all the TextViews dynamically with the current global vars values
      */
     public void updateUIValues() {
         displayQuantity(quantity);
-        orderMessage = prepareOrderMessage();
-        displayOrderMessage(orderMessage);
+    }
+
+    /**
+     * This method starts an Activity to send email with the order
+     * More on https://developer.android.com/guide/components/intents-common.html#Email
+     * @param subject
+     * @param emailBody
+     */
+    private void composeEmail(String subject, String emailBody) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, emailBody);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     /**
@@ -146,12 +150,12 @@ public class MainActivity extends AppCompatActivity {
      * @return text summary
      */
     private String createOrderSummary(String name, int totalPrice, boolean hasWhippedCream, boolean hasChocolate) {
-        String priceMessage = "Name: " + name;
-        priceMessage += "\nAdd Whipped Cream? " + hasWhippedCream;
-        priceMessage += "\nAdd Chocolate? " + hasChocolate;
-        priceMessage += "\nQuantity: " + quantity ;
-        priceMessage += "\nTotal: " + NumberFormat.getCurrencyInstance().format(totalPrice);
-        priceMessage += "\nThank you!";
+        String priceMessage = getString(R.string.order_summary_name, name);
+        priceMessage += "\n" + getString(R.string.order_summary_whipped_cream, hasWhippedCream);
+        priceMessage += "\n" + getString(R.string.order_summary_chocolate,hasChocolate);
+        priceMessage += "\n" + getString(R.string.order_summary_quantity, quantity) ;
+        priceMessage += "\n" + getString(R.string.order_summary_price,  NumberFormat.getCurrencyInstance().format(totalPrice));
+        priceMessage += "\n" + getString(R.string.thank_you);
         return priceMessage;
     }
 

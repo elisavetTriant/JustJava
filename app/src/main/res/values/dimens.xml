@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="elements_margin">16dp</dimen>
+    <dimen name="quantity_buttons_padding">8dp</dimen>
+    <dimen name="order_button_padding">16dp</dimen>
+    <dimen name="quantity_buttons_size">48dp</dimen>
+    <dimen name="checkboxes_padding">24dp</dimen>
+    <dimen name="elements_text_size">16sp</dimen>
+</resources>
