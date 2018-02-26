@@ -6,4 +6,6 @@
     <dimen name="quantity_buttons_size">48dp</dimen>
     <dimen name="checkboxes_padding">24dp</dimen>
     <dimen name="elements_text_size">16sp</dimen>
+    <dimen name="headings_text_size">15sp</dimen>
+    <dimen name="headings_height">48dp</dimen>
 </resources>

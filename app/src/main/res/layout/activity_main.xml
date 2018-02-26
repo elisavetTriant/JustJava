@@ -21,12 +21,9 @@
             android:textSize="@dimen/elements_text_size" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/HeaderTextStyle"
             android:layout_marginBottom="@dimen/elements_margin"
-            android:text="@string/toppings"
-            android:textAllCaps="true"
-            android:textSize="@dimen/elements_text_size" />
+            android:text="@string/toppings" />
 
         <CheckBox
             android:id="@+id/whipped_cream_checkbox"
@@ -47,12 +44,9 @@
             android:textSize="@dimen/elements_text_size" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/HeaderTextStyle"
             android:layout_marginBottom="@dimen/elements_margin"
-            android:text="@string/quantity"
-            android:textAllCaps="true"
-            android:textSize="@dimen/elements_text_size" />
+            android:text="@string/quantity" />
 
         <LinearLayout
             android:layout_width="wrap_content"
